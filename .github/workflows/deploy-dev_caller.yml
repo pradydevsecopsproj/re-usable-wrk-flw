@@ -5,14 +5,11 @@ on:
 
 jobs:
 
-  terraform:
+  test-call-job:
 
     uses: ./.github/workflows/terraform-reusable.yml
 
     with:
       environment: dev
-    #  terraform_version: "1.15.3"
       name: "prady"
 
-    # secrets:
-    #   AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
