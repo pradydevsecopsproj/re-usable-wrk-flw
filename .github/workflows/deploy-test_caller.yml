@@ -11,7 +11,7 @@ jobs:
 
     with:
       environment: test
-      terraform_version: "1.15.3"
+      #terraform_version: "1.15.3"
       name: "prady"
 
     # secrets:
