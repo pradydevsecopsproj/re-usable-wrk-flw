@@ -1,0 +1,115 @@
+# "workflow_call" makes a workflow reusable. 
+# "workflow_call" work on JOB level not steps level
+# Use "with" for inputs
+# Use "secrets" for sensitive data like secrets
+name: Reusable Terraform Workflow
+
+on:
+  workflow_call:
+
+    inputs:
+       name:
+        required: true
+        type: string  
+
+      environment:
+        description: "Terraform environment"
+        required: true
+        type: string
+
+      # terraform_version:
+      #   description: "Terraform version"
+      #   required: false
+      #   type: string
+      #   default: "1.15.3"      
+     
+
+    # secrets:
+
+    #   AWS_ROLE_ARN:
+    #     description: "AWS IAM Role ARN"
+    #     required: true
+
+jobs:
+
+   hello:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Hello
+        run: |
+          echo "Hello ${{ inputs.name }}"
+          ech0 "environment is ${{inputs.environment}}"
+          echo "This message came from a reusable workflow."
+
+  # terraform:
+
+  #   name: Terraform - ${{ inputs.environment }}
+  #   runs-on: ubuntu-latest
+
+  #   permissions:
+  #     id-token: write
+  #     contents: read
+
+  #   steps:
+
+      # # ------------------------------------------------
+      # # 1. Checkout
+      # # ------------------------------------------------
+
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
+
+
+      # # ------------------------------------------------
+      # # 2. Setup Terraform
+      # # ------------------------------------------------
+
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v3
+
+      #   with:
+      #     terraform_version: ${{ inputs.terraform_version }}
+
+
+      # # ------------------------------------------------
+      # # 3. Configure AWS
+      # # ------------------------------------------------
+
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v6
+
+      #   with:
+      #     role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+      #     aws-region: ap-south-1
+
+
+      # # ------------------------------------------------
+      # # 4. Terraform Init
+      # # ------------------------------------------------
+
+      # - name: Terraform Init
+      #   working-directory: Infra-repo/root
+      #   run: terraform init
+
+
+      # # ------------------------------------------------
+      # # 5. Terraform Validate
+      # # ------------------------------------------------
+
+      # - name: Terraform Validate
+      #   working-directory: Infra-repo/root
+      #   run: terraform validate
+
+
+      # # ------------------------------------------------
+      # # 6. Terraform Plan
+      # # ------------------------------------------------
+
+      # - name: Terraform Plan
+      #   working-directory: Infra-repo/root
+      #   run: |
+      #     terraform plan \
+      #       -var-file="../environments/${{ inputs.environment }}/${{ inputs.environment }}.tfvars"
