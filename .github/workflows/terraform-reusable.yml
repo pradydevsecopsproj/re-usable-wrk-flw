@@ -41,7 +41,7 @@ jobs:
       - name: Hello
         run: |
           echo "Hello ${{ inputs.name }}"
-          ech0 "environment is ${{inputs.environment}}"
+          echo "environment is ${{inputs.environment}}"
           echo "This message came from a reusable workflow."
 
   # terraform:
